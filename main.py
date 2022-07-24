@@ -8,18 +8,19 @@ deck = ["{0}{1}".format(v, s) for v in values for s in suits]
 print(deck)
 print(len(deck))
 monte_carlo = 10000000
-card_draws = 5
-evaluator = 0
+card_draws = 4
 instances = 0
+evaluator = 0
 for hand in range(monte_carlo):
     previous_cards = []
     deck_instance = deck
     fresh_card = random.choice(deck_instance)
     multiplier = 0
     for round in range(card_draws):
+        print(round)
         last_card = fresh_card
         previous_cards.append(last_card)
-        for card in last_card:
+        if last_card:
             fresh_card = random.choice(deck_instance)
             while fresh_card in previous_cards:
                 # print(previous_cards)
@@ -30,9 +31,8 @@ for hand in range(monte_carlo):
                 # print(fresh_card)
         if last_card[:-1] < fresh_card[:-1]:
             multiplier += 1
-            if multiplier == 5:
+            if multiplier == 4:
                 evaluator +=1
-                # print("success")
     instances +=1
-print(f"Percentage of time better cards draw x5:    % {evaluator / instances}")
+print(f"Percentage of time better cards draw x5:    % {evaluator / instances * 100}")
 
